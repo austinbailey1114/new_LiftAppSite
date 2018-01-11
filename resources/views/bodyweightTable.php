@@ -30,7 +30,7 @@ $bodyweights = $_SESSION['userBodyweights'];
 			}
 			echo "</table>";
 		} else {
-			echo "<h1 style='text-align: center;'>No Lifts To Show</h1>";
+			echo "<h1 style='text-align: center;'>No Data To Show</h1>";
 		}
 	?>
 </body>

@@ -10,4 +10,8 @@ class BodyweightController extends Controller {
 
 		return $response->withJson($mydata, 200, JSON_PRETTY_PRINT);
 	}
+
+	public function showBodyweightTable($request, $response) {
+		return $this->view->render($response, 'bodyweightTable.php');
+	}
 }

@@ -10,6 +10,7 @@ $app->group('/', function() {
 $app->group('/lifts', function() {
 	$this->get('/{id}', 'LiftController:getLifts');
 	$this->get('/view/asTable', 'LiftController:showLiftTable');
+	$this->post('/', 'LiftController:postLift');
 });
 
 $app->group('/bodyweights', function() {
@@ -23,6 +24,7 @@ $app->group('/lifttypes', function() {
 
 $app->group('/foods', function() {
 	$this->get('/{id}', 'FoodController:getFoods');
+	$this->get('/search/{query}', 'FoodController:searchFoods');
 });
 
 $app->group('/users', function() {

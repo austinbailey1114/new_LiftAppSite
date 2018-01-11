@@ -10,4 +10,9 @@ class FoodController extends Controller {
 
 		return $response->withJson($mydata, 200, JSON_PRETTY_PRINT);
 	}
+
+	public function searchFoods($request, $response, $args) {
+		$query = new Query();
+
+	}
 }
