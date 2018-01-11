@@ -42,4 +42,8 @@ $container['BodyweightController'] = function($container) {
 	return new \Carbon\Controllers\BodyweightController($container);
 };
 
+$container['LifttypesController'] = function($container) {
+	return new \Carbon\Controllers\LifttypesController($container);
+};
+
 require '../app/routes.php';

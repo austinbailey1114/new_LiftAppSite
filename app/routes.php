@@ -9,3 +9,7 @@ $app->group('/lifts', function() {
 $app->group('/bodyweights', function() {
 	$this->get('/{id}', 'BodyweightController:getBodyweights');
 });
+
+$app->group('/lifttypes', function() {
+	$this->get('/{id}', 'LifttypesController:getLifttypes');
+});
