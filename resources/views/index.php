@@ -138,7 +138,7 @@ if (count($bodyweights) > 0) {
 					<div>
 						<h2 align="center" id="liftProgressTitle">Your Lift Progress</h2>
 						<form id="lifttableform" action="lifts/view/asTable">
-							<button id="lifttable">View as Table</button>
+							<a id="lifttable" href="lifts/view/asTable">View as Table</a>
 						</form>
 					</div>
 						<select name="chooseLift" id="chooseLiftToDisplay" onchange="buildliftChart()">
@@ -259,9 +259,7 @@ if (count($bodyweights) > 0) {
 			<div id="weightDiv">
 				<div class="bodyweightGraph">
 					<h2 id="bodyweighttabletitle">Bodyweight</h2>
-						<form id="bodyweighttable" action="bodyweightTable.php">
-							<button id="bodyweighttable">View as Table</button>
-						</form>
+					<a id="bodyweighttable" href="bodyweights/view/asTable">View as Table</a>
 					<div id ="bodyweightGraphDiv">
 						<canvas id="bodyweightChart"></canvas>
 					</div>

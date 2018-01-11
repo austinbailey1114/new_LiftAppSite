@@ -14,6 +14,7 @@ $app->group('/lifts', function() {
 
 $app->group('/bodyweights', function() {
 	$this->get('/{id}', 'BodyweightController:getBodyweights');
+	$this->get('/view/asTable', 'BodyweightController:showBodyweightTable');
 });
 
 $app->group('/lifttypes', function() {

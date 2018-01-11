@@ -72,8 +72,6 @@ button {
 
 }
 
-
-
 select {
    border: 1px solid #ccc;
    width: 17%;
@@ -259,6 +257,17 @@ h2.subhead {
 	float: right;
 	line-height: 60px;
 	margin-right: 3%;
+}
+
+#lifttable {
+	color: #E74C3C;
+  height: 100%;
+  width: 100%;
+  border: 0px solid #DCDCDC;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 13px;
+  font-weight: 200;
 }
 
 #liftProgressTitle {
@@ -566,7 +575,12 @@ h2.subhead {
 #bodyweighttable {
 	float: right;
 	line-height: 60px;
-	margin-right: 3%;
+	margin-right: 0.5%;
+	width: 30%;
+	font-size: 13px;
+  	font-weight: 200;
+  	color: #E74C3C;
+	
 }
 
 #bodyweighttabletitle {
@@ -651,6 +665,10 @@ h2.subhead {
     #typeSelectDiv select {
 		width: 35%;
 	}
+
+	#bodyweighttabletitle {
+		margin-left: 33%;
+	}
 }
 
 @media only screen and (max-width: 1150px) {
@@ -711,7 +729,7 @@ h2.subhead {
 	}
 
 	#bodyweighttabletitle {
-		margin-left: 33%;
+		margin-left: 29%;
 	}
 
 	#newBodyWeight {
