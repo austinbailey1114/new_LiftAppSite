@@ -13,3 +13,11 @@ $app->group('/bodyweights', function() {
 $app->group('/lifttypes', function() {
 	$this->get('/{id}', 'LifttypesController:getLifttypes');
 });
+
+$app->group('/foods', function() {
+	$this->get('/{id}', 'FoodController:getFoods');
+});
+
+$app->group('/users', function() {
+	$this->post('/checkLogin', 'UserController:checkLogin');
+});

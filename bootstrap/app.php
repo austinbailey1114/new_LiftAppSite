@@ -46,4 +46,13 @@ $container['LifttypesController'] = function($container) {
 	return new \Carbon\Controllers\LifttypesController($container);
 };
 
+$container['FoodController'] = function($container) {
+	return new \Carbon\Controllers\FoodController($container);
+};
+
+$container['UserController'] = function($container) {
+	return new \Carbon\Controllers\UserController($container);
+};
+
+
 require '../app/routes.php';
