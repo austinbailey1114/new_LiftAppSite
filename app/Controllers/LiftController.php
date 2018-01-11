@@ -18,8 +18,6 @@ class LiftController extends Controller {
 	public function postLift($request, $response) {
 		$data = $request->getParsedBody();
 
-		var_dump($data);
-
 		$query = new Query();
 
 		if (isset($_POST['real_type'])) {
@@ -40,6 +38,5 @@ class LiftController extends Controller {
 			echo "Failed to add lift. Please ensure all variables are properly defined";
 			return $response->withStatus(400);
 		}
-
 	}
 }

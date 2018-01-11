@@ -8,18 +8,18 @@ $app->group('/', function() {
 });
 
 $app->group('/lifts', function() {
-	$this->get('/{id}', 'LiftController:getLifts');
+	//app pages
 	$this->get('/view/asTable', 'LiftController:showLiftTable');
-	$this->post('/', 'LiftController:postLift');
+	$this->post('/addLift', 'LiftController:addLift');
 });
 
 $app->group('/bodyweights', function() {
-	$this->get('/{id}', 'BodyweightController:getBodyweights');
+	//app pages
 	$this->get('/view/asTable', 'BodyweightController:showBodyweightTable');
 });
 
 $app->group('/lifttypes', function() {
-	$this->get('/{id}', 'LifttypesController:getLifttypes');
+	//app pages
 });
 
 $app->group('/foods', function() {
@@ -29,4 +29,24 @@ $app->group('/foods', function() {
 
 $app->group('/users', function() {
 	$this->post('/checkLogin', 'UserController:checkLogin');
+});
+
+$app->group('/api', function() {
+	$this->group('/lifts', function() {
+		$this->get('/{id}', 'LiftController:getLifts');
+		$this->post('/', 'LiftController:postLift');
+	});
+	$this->group('/bodyweights', function() {
+		$this->get('/{id}', 'BodyweightController:getBodyweights');
+		//add post
+	});
+	$this->group('/lifttypes', function() {
+		$this->get('/{id}', 'LifttypesController:getLifttypes');
+	});
+	$this->group('/foods', function() {
+		$this->get('/{id}', 'FoodController:getFoods');
+		$this->get('/search/{query}', 'FoodController:searchFoods');
+	});
+
+
 });

@@ -7,7 +7,7 @@ $name = $_SESSION['name'];
 $ch = curl_init();
 
 //set options to lift.php, string, GET
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/lifts/' . $id);
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/lifts/' . $id);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 
@@ -27,7 +27,7 @@ $_SESSION['userLifts'] = $lifts;
 
 
 //update url to bodyweight.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/bodyweights/' . $id);
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/bodyweights/' . $id);
 
 $bodyweights = curl_exec($ch);
 if (curl_errno($ch)) {
@@ -39,7 +39,7 @@ $bodyweights = json_decode(trim($bodyweights), true);
 $_SESSION['userBodyweights'] = $bodyweights;
 
 //update url to lifttypes.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/lifttypes/' . $id);
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/lifttypes/' . $id);
 
 $lifttypes = curl_exec($ch);
 if (curl_errno($ch)) {
@@ -49,7 +49,7 @@ if (curl_errno($ch)) {
 $lifttypes = json_decode(trim($lifttypes), true);
 
 //update url to food.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/foods/' . $id);
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/foods/' . $id);
 
 $foodhistory = curl_exec($ch);
 
