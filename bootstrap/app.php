@@ -38,4 +38,8 @@ $container['DashboardController'] = function($container) {
 	return new \Carbon\Controllers\DashboardController($container);
 };
 
+$container['BodyweightController'] = function($container) {
+	return new \Carbon\Controllers\BodyweightController($container);
+};
+
 require '../app/routes.php';
