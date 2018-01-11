@@ -1,5 +1,8 @@
 <?php
 
+namespace Carbon\Controllers;
+use mysqli;
+
 class Query {
 
 	// mysqli object used to connect to DB
