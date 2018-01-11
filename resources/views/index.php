@@ -137,7 +137,7 @@ if (count($bodyweights) > 0) {
 				<div class="lift">
 					<div>
 						<h2 align="center" id="liftProgressTitle">Your Lift Progress</h2>
-						<form id="lifttableform" action="liftTable.php">
+						<form id="lifttableform" action="lifts/view/asTable">
 							<button id="lifttable">View as Table</button>
 						</form>
 					</div>

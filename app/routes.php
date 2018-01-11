@@ -9,6 +9,7 @@ $app->group('/', function() {
 
 $app->group('/lifts', function() {
 	$this->get('/{id}', 'LiftController:getLifts');
+	$this->get('/view/asTable', 'LiftController:showLiftTable');
 });
 
 $app->group('/bodyweights', function() {

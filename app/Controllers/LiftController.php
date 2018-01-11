@@ -10,4 +10,8 @@ class LiftController extends Controller {
 
 		return $response->withJson($mydata, 200, JSON_PRETTY_PRINT);
 	}
+
+	public function showLiftTable($request, $response, $args) {
+		return $this->view->render($response, 'liftTable.php');
+	}
 }
