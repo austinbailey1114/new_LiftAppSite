@@ -14,4 +14,20 @@ class BodyweightController extends Controller {
 	public function showBodyweightTable($request, $response) {
 		return $this->view->render($response, 'bodyweightTable.php');
 	}
+
+	public function postBodyweight($request, $response) {
+		$data = $request->getParsedBody();
+
+		$query = new Query();
+
+		$result = $query->table('bodyweights')->insert(array('weight', 'user'), array($data['updateWeight'], $_SESSION['id']))->execute();
+
+		if ($result) {
+			echo "New bodyweight added successfully";
+			return $response->withStatus(200);
+		} else {
+			echo "Unable to add bodyweight. Please ensure all variables are added correctly";
+			return $response->withStatus(400);
+		}
+	}
 }

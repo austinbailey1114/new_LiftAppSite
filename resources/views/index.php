@@ -159,7 +159,7 @@ if (count($bodyweights) > 0) {
 					</div>
 				</div>
 				<div id="newLiftContainer">
-					<form action="./lifts/" method="post">
+					<form action="./api/lifts/" method="post">
 						<div id="addNewWeight">
 							<p id="promptWeight">Weight: </p>
 							<input type="text" name="weight" id="weightInput" placeholder="pounds" autocomplete="off">
@@ -266,7 +266,7 @@ if (count($bodyweights) > 0) {
 					</div>
 				</div>
 				<div id="newWeight">
-					<form action="./addWeight.php" method="post">
+					<form action="./api/bodyweights/" method="post">
 						<div id="promptBodyweight">
 							<h2 id="weightTitle">Update: </h2>
 							<input type="text" name="updateWeight" id="newBodyWeight" placeholder="pounds">

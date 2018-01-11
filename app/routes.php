@@ -38,7 +38,7 @@ $app->group('/api', function() {
 	});
 	$this->group('/bodyweights', function() {
 		$this->get('/{id}', 'BodyweightController:getBodyweights');
-		//add post
+		$this->post('/', 'BodyweightController:postBodyweight');
 	});
 	$this->group('/lifttypes', function() {
 		$this->get('/{id}', 'LifttypesController:getLifttypes');
