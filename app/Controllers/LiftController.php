@@ -20,16 +20,23 @@ class LiftController extends Controller {
 
 		$query = new Query();
 
+		if (isset($_SESSION['id'])) {
+			$id = $_SESSION['id'];
+		} else {
+			$id = $data['id'];
+		}
+
+
 		if (isset($_POST['real_type'])) {
 			$type = $_POST['real_type'];
 			$inserted = true;
 		} else {
 			$type = $_POST['type'];
-			$inserted = $query->table('lifttypes')->insert(array('name', 'user'), array($data['type'], $_SESSION['id']))->execute();
+			$inserted = $query->table('lifttypes')->insert(array('name', 'user'), array($data['type'], $id))->execute();
 		}
 
 		//insert lift
-		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $type, $_SESSION['id']))->execute();
+		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $type, $id))->execute();
 
 		if ($result && $inserted) {
 			echo "New lift added successfully";

@@ -42,6 +42,7 @@ $app->group('/api', function() {
 	});
 	$this->group('/lifttypes', function() {
 		$this->get('/{id}', 'LifttypesController:getLifttypes');
+		$this->post('/', 'LifttypesController:postLiftType');
 	});
 	$this->group('/foods', function() {
 		$this->get('/{id}', 'FoodController:getFoods');

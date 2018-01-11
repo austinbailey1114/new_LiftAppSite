@@ -20,7 +20,13 @@ class BodyweightController extends Controller {
 
 		$query = new Query();
 
-		$result = $query->table('bodyweights')->insert(array('weight', 'user'), array($data['updateWeight'], $_SESSION['id']))->execute();
+		if (isset($_SESSION['id'])) {
+			$id = $_SESSION['id'];
+		} else {
+			$id = $data['id'];
+		}
+
+		$result = $query->table('bodyweights')->insert(array('weight', 'user'), array($data['updateWeight'], $id))->execute();
 
 		if ($result) {
 			echo "New bodyweight added successfully";
