@@ -3,16 +3,14 @@
 namespace Carbon\Controllers;
 
 class BodyweightController extends Controller {
+
+	//api
 	public function getBodyweights($request, $response, $args) {
 		$query = new Query();
 
 		$mydata = $query->table('bodyweights')->where('user', '=', $args['id'])->execute();
 
 		return $response->withJson($mydata, 200, JSON_PRETTY_PRINT);
-	}
-
-	public function showBodyweightTable($request, $response) {
-		return $this->view->render($response, 'bodyweightTable.php');
 	}
 
 	public function postBodyweight($request, $response) {
@@ -34,6 +32,31 @@ class BodyweightController extends Controller {
 		} else {
 			echo "Unable to add bodyweight. Please ensure all variables are added correctly";
 			return $response->withStatus(400);
+		}
+	}
+
+	//app pages
+	public function showBodyweightTable($request, $response) {
+		return $this->view->render($response, 'bodyweightTable.php');
+	}
+
+	public function addBodyweight($request, $response) {
+		$data = $request->getParsedBody();
+
+		$data['id'] = $_SESSION['id'];
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/bodyweights/');
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$result = curl_exec($ch);
+
+		var_dump($result);
+
+		if ($result) {
+			return $response->withHeader('Location', '../');
 		}
 	}
 }

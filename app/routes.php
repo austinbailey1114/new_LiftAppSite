@@ -16,6 +16,7 @@ $app->group('/lifts', function() {
 $app->group('/bodyweights', function() {
 	//app pages
 	$this->get('/view/asTable', 'BodyweightController:showBodyweightTable');
+	$this->post('/addBodyweight', 'BodyweightController:addBodyweight');
 });
 
 $app->group('/lifttypes', function() {

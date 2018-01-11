@@ -266,7 +266,7 @@ if (count($bodyweights) > 0) {
 					</div>
 				</div>
 				<div id="newWeight">
-					<form action="./api/bodyweights/" method="post">
+					<form action="./bodyweights/addBodyweight" method="post">
 						<div id="promptBodyweight">
 							<h2 id="weightTitle">Update: </h2>
 							<input type="text" name="updateWeight" id="newBodyWeight" placeholder="pounds">
