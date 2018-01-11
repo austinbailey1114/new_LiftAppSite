@@ -1,13 +1,5 @@
 <?php 
 
-if (!isset($_SESSION['id'])) {
-	
-} else if (time() - $_SESSION['created'] > 1) {
-	session_unset();
-	session_destroy();
-	header("Location: ./login.php");
-}
-
 $id = $_SESSION['id'];
 $name = $_SESSION['name'];
 
@@ -133,7 +125,7 @@ if (count($bodyweights) > 0) {
 				<div class="dropdown">
 					<button onclick="showDropDown()" class="dropButton"> <?php echo $name ?></button>
 					<div id="dropDownElements" class="dropDownContent">
-						<a href="./logout.php"><h3 id="accountLink">Log Out</h3></a>
+						<a href="./logout"><h3 id="accountLink">Log Out</h3></a>
 						<a href="./settings.php"><h3 id="passwordLink">Settings</h3></a>
 					</div>
 				</div>

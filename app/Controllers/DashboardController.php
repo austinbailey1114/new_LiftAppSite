@@ -6,7 +6,7 @@ class DashboardController extends Controller {
 	public function index($request, $response) {
 		if (!isset($_SESSION['id'])) {
 			return $this->view->render($response, 'login.php');
-		} else if (time() - $_SESSION['created'] > 1) {
+		} else if (time() - $_SESSION['created'] > 3600) {
 			session_unset();
 			session_destroy();
 			return $this->view->render($response, 'login.php');
@@ -39,7 +39,11 @@ class DashboardController extends Controller {
 		} else {
 			return $response->withHeader('Location', './login');
 		}
+	}
 
-		
+	public function logout($request, $response) {
+		session_unset();
+		session_destroy();
+		return $this->view->render($response, 'login.php');
 	}
 }

@@ -4,6 +4,7 @@ $app->group('/', function() {
 	$this->get('', 'DashboardController:index');
 	$this->get('login', 'DashboardController:login');
 	$this->post('verify', 'DashboardController:verify');
+	$this->get('logout', 'DashboardController:logout');
 });
 
 $app->group('/lifts', function() {
