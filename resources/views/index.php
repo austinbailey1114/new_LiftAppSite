@@ -1,16 +1,15 @@
 <?php 
 
 if (!isset($_SESSION['id'])) {
-	header('Location: ./login.php');
-} else if (time() - $_SESSION['created'] > 1800) {
+	
+} else if (time() - $_SESSION['created'] > 1) {
 	session_unset();
 	session_destroy();
 	header("Location: ./login.php");
 }
 
-$id = 3;
-
-$name = "user";
+$id = $_SESSION['id'];
+$name = $_SESSION['name'];
 
 /* use cURL to grab lifts */
 $ch = curl_init();
@@ -343,7 +342,7 @@ if (count($bodyweights) > 0) {
     			var choice = type.options[type.selectedIndex].text;
     			if (choice == 'Add New') {
     				var selectDiv = document.getElementById('typeSelectDiv');
-    				selectDiv.innerHTML = "<button id='tempButton' type=button onclick='unfillType()'><img src='./images/xicon.png' height='15' width='15' style='margin-right: 5px;'></button><input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>";
+    				selectDiv.innerHTML = "<button id='tempButton' type=button onclick='unfillType()'><img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'></button><input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>";
     				document.getElementById('typeInput').focus();
     			}
 			}

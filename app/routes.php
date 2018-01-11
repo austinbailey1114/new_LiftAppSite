@@ -1,6 +1,10 @@
 <?php
 
-$app->get('/', 'DashboardController:index');
+$app->group('/', function() {
+	$this->get('', 'DashboardController:index');
+	$this->get('login', 'DashboardController:login');
+	$this->post('verify', 'DashboardController:verify');
+});
 
 $app->group('/lifts', function() {
 	$this->get('/{id}', 'LiftController:getLifts');
