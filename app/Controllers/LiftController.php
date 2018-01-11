@@ -18,16 +18,20 @@ class LiftController extends Controller {
 	public function postLift($request, $response) {
 		$data = $request->getParsedBody();
 
+		var_dump($data);
+
 		$query = new Query();
 
-		//insert lift
-		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $data['type'], $_SESSION['id']))->execute();
-		//check if type is already in users lift types. if not, add it
-		$typeExists = $query->table('lifttypes')->where('user', '=', $_SESSION['id'])->and_where('name', '=', $data['type'])->execute();
-
-		if (!$typeExists) {
+		if (isset($_POST['real_type'])) {
+			$type = $_POST['real_type'];
+			$inserted = true;
+		} else {
+			$type = $_POST['type'];
 			$inserted = $query->table('lifttypes')->insert(array('name', 'user'), array($data['type'], $_SESSION['id']))->execute();
 		}
+
+		//insert lift
+		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $type, $_SESSION['id']))->execute();
 
 		if ($result && $inserted) {
 			echo "New lift added successfully";
