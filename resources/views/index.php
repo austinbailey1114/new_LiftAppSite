@@ -1,3 +1,111 @@
+<?php 
+
+if (!isset($_SESSION['id'])) {
+	header('Location: ./login.php');
+} else if (time() - $_SESSION['created'] > 1800) {
+	session_unset();
+	session_destroy();
+	header("Location: ./login.php");
+}
+
+$id = 3;
+
+$name = "user";
+
+/* use cURL to grab lifts */
+$ch = curl_init();
+
+//set options to lift.php, string, GET
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/lifts/' . $id);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+$headers = array();
+$headers[] = "Content-Type: application/json";
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$lifts = curl_exec($ch);
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+$lifts = json_decode(trim($lifts), true);
+
+//create SESSION variable for liftTable.php
+$_SESSION['userLifts'] = $lifts;
+
+
+//update url to bodyweight.php
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/bodyweights/' . $id);
+
+$bodyweights = curl_exec($ch);
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+$bodyweights = json_decode(trim($bodyweights), true);
+
+$_SESSION['userBodyweights'] = $bodyweights;
+
+//update url to lifttypes.php
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/lifttypes/' . $id);
+
+$lifttypes = curl_exec($ch);
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+$lifttypes = json_decode(trim($lifttypes), true);
+
+//update url to food.php
+curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/foods/' . $id);
+
+$foodhistory = curl_exec($ch);
+
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+curl_close($ch);
+
+$foodhistory = json_decode(trim($foodhistory), true);
+
+if(count($foodhistory) > 0) {
+	$foodhistory = array_reverse($foodhistory);
+}
+
+//build arrays with the GET data to make graphs
+$liftxaxis = array();
+$liftyaxis = array();
+$types = array();
+
+if (count($lifts) > 0) {
+	foreach ($lifts as $lift) {
+		$date = strtotime($lift["date"]);
+		$liftxaxis[] = date("n/j", $date);
+
+		$weight = $lift["weight"];
+		$reps = $lift["reps"];
+		$onerepmax = $weight * (1 + ($reps/30));
+		$liftyaxis[] = $onerepmax;
+
+		$types[] = $lift["type"];
+	}
+}
+
+$weightxaxis = array();
+$weightyaxis = array();
+
+if (count($bodyweights) > 0) {
+	foreach ($bodyweights as $bodyweight) {
+		$date = strtotime($bodyweight["date"]);
+		$weightxaxis[] = date("m-d", $date);
+		$weightyaxis[] = $bodyweight["weight"];
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
