@@ -159,7 +159,7 @@ if (count($bodyweights) > 0) {
 					</div>
 				</div>
 				<div id="newLiftContainer">
-					<form action="./api/lifts/" method="post">
+					<form action="./lifts/addLift" method="post">
 						<div id="addNewWeight">
 							<p id="promptWeight">Weight: </p>
 							<input type="text" name="weight" id="weightInput" placeholder="pounds" autocomplete="off">

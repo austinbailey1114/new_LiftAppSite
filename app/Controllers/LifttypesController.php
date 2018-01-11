@@ -15,14 +15,7 @@ class LifttypesController extends Controller {
 		$data = $request->getParsedBody();
 		$query = new Query();
 
-		if (isset($_SESSION['id'])) {
-			$id = $_SESSION['id'];
-		} else {
-			$id = $data['id'];
-		}
-
-		// NOTE: This post requires user ID to be passed as POST param in anticipation of api calls from mobile
-		$result = $query->table('lifttypes')->insert(array('name', 'user'), array($data['name'], $id))->execute();
+		$result = $query->table('lifttypes')->insert(array('name', 'user'), array($data['name'], $data['id']))->execute();
 
 		if ($result) {
 			echo "New lifttype added successfully";

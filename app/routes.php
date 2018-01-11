@@ -47,6 +47,7 @@ $app->group('/api', function() {
 	$this->group('/foods', function() {
 		$this->get('/{id}', 'FoodController:getFoods');
 		$this->get('/search/{query}', 'FoodController:searchFoods');
+		//todo when nutrition api is up
 	});
 
 
