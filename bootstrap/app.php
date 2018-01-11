@@ -26,9 +26,9 @@ $app = new \Slim\App([
 
 $container = $app->getContainer();
 
-/*$container['LiftController'] = function($container) {
+$container['LiftController'] = function($container) {
 	return new \Carbon\Controllers\LiftController($container);
-};*/
+};
 
 $container['view'] = function ($container) {
     return new \Slim\Views\PhpRenderer('../resources/views/');
