@@ -6,7 +6,6 @@ class LiftController extends Controller {
 	//api functions
 	public function getLifts($request, $response, $args) {
 		$query = new Query();
-
 		$mydata = $query->table('lifts')->where('user', '=', $args['id'])->execute();
 
 		return $response->withJson($mydata, 200, JSON_PRETTY_PRINT);
@@ -17,6 +16,7 @@ class LiftController extends Controller {
 
 		$query = new Query();
 
+		//insert type into lift types if it does not exist
 		if (isset($_POST['real_type'])) {
 			$type = $_POST['real_type'];
 			$inserted = true;
@@ -35,6 +35,22 @@ class LiftController extends Controller {
 			echo "Failed to add lift. Please ensure all variables are properly defined";
 			return $response->withStatus(400);
 		}
+	}
+
+	public function deleteLift($request, $response) {
+		$data = $request->getParsedBody();
+
+		$query = new Query();
+		$result = $query->table('lifts')->delete('id', '=', $data['id'])->execute();
+
+		if ($result) {
+			echo "Item deleted successfully";
+			return $response->withStatus(200);
+		} else {
+			echo "Unable to delete item. Please ensure all variables are properly defined";
+			return $response->withStatus(400);
+		}
+
 	}
 
 	//app functions
