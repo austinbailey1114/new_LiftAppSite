@@ -51,7 +51,7 @@ $foods = json_decode(trim($foods), true);
 					echo '<td>'.$food['carbohydrate'].'</td>';
 					echo '<td>'.$food['protein'].'</td>';
 					echo '<td>'.$food['serving_unit']. " " . $food['serving_value'].'</td>';
-					echo '<td><a href=./api/addFoodToHistory.php?id='.$food['id'].'><button>Add</button></a></td>';					
+					echo '<td><a href=../foods/addFoodToHistory/'.$food['id'].'><button>Add</button></a></td>';					
 					echo '</tr>';
 				}
 				echo "</table>";
