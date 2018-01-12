@@ -50,4 +50,9 @@ class DashboardController extends Controller {
 	public function newUser($request, $response) {
 		return $this->view->render($response, 'accountCreate.php');
 	}
+
+	public function reset($request, $response) {
+		return $this->view->render($response, 'reset.php');
+	}
+
 }

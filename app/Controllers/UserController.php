@@ -3,6 +3,7 @@
 namespace Carbon\Controllers;
 
 class UserController extends Controller {
+	//api
 	public function checkLogin($request, $response) {
 
 		$args = $request->getParsedBody();
@@ -32,6 +33,7 @@ class UserController extends Controller {
 		}
 	}
 
+	//app pages
 	public function addUser($request, $response) {
 		$data = $request->getParsedBody();
 
@@ -53,5 +55,31 @@ class UserController extends Controller {
 			$_SESSION['created'] = time();
 			return $response->withHeader('Location', '../');
 		}
+	}
+
+	public function resetPassword($request, $response) {
+		$query = new Query();
+
+		/*
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$newPass = '';
+		for ($i=0; $i < 8; $i++) { 
+			$newPass = $newPass . $chars[random_int(0, strlen($chars))];
+		}
+
+		$result = $query->table('users')->update(array('password'), array(md5($newPass)))->where('id', '=', $_SESSION['id'])->execute();
+
+		//uncomment following lines when uploaded to server
+		
+		if ($result) {
+			$to      = $_SESSION['email'];
+			$subject = 'Password Reset';
+			$message = 'Your new password is: ' . $newPass;
+			$headers = 'From: liftappsite@austinmbailey.com';
+
+			mail($to, $subject, $message, $headers);
+		}*/
+
+		return $response->withHeader('Location', './');
 	}
 }

@@ -6,6 +6,8 @@ $app->group('/', function() {
 	$this->post('verify', 'DashboardController:verify');
 	$this->get('logout', 'DashboardController:logout');
 	$this->get('createAccount', 'DashboardController:newUser');
+	$this->get('reset', 'DashboardController:reset');
+	$this->get('resetPassword', 'UserController:resetPassword');
 });
 
 $app->group('/lifts', function() {

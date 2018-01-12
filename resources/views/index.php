@@ -95,7 +95,7 @@ if (count($bodyweights) > 0) {
 					<button onclick="showDropDown()" class="dropButton"> <?php echo $name ?></button>
 					<div id="dropDownElements" class="dropDownContent">
 						<a href="./logout"><h3 id="accountLink">Log Out</h3></a>
-						<a href="./settings.php"><h3 id="passwordLink">Settings</h3></a>
+						<a href="./reset"><h3 id="passwordLink">Settings</h3></a>
 					</div>
 				</div>
 				<img src="../resources/images/userIcon.png" height="52" width="52" id="userIcon">
