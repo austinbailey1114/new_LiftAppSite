@@ -12,7 +12,9 @@ class FoodController extends Controller {
 	}
 
 	public function searchFoods($request, $response, $args) {
-		$query = new Query();
+		//eventually, cURL the nutrition API
+
+		return $this->view->render($response, 'search.php');
 
 	}
 }

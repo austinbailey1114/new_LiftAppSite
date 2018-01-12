@@ -198,7 +198,7 @@ if (count($bodyweights) > 0) {
 					?>
 				</div>
 				<div id="newFood">
-					<form id="searchFood" action="./search.php" method="post">
+					<form id="searchFood" action="./foods/search" method="post">
 						<div id="enterfood">
 							<h2 id="newFoodTitle">Search Foods: </h2>
 							<input type="text" name="searchField" id="searchInput" placeholder="Food, brand, etc.">

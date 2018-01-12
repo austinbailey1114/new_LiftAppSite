@@ -28,7 +28,7 @@ $app->group('/lifttypes', function() {
 
 $app->group('/foods', function() {
 	$this->get('/{id}', 'FoodController:getFoods');
-	$this->get('/search/{query}', 'FoodController:searchFoods');
+	$this->post('/search', 'FoodController:searchFoods');
 });
 
 $app->group('/users', function() {
