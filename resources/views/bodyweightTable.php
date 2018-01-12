@@ -25,7 +25,7 @@ $bodyweights = $_SESSION['userBodyweights'];
 				echo "<tr>";
 				echo "<td>".$bodyweight['weight']."</td>";
 				echo "<td>".date("F d, Y", strtotime($bodyweight['date']))."</td>";
-				echo "<td><a href=api/deleteBodyweight.php?id=".$bodyweight['id']."><button>Delete</button></a></td>";
+				echo "<td><a href=../../bodyweights/deleteBodyweight/".$bodyweight['id']."><button>Delete</button></a></td>";
 				echo "</tr>";
 			}
 			echo "</table>";

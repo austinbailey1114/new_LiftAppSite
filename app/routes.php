@@ -18,6 +18,7 @@ $app->group('/bodyweights', function() {
 	//app pages
 	$this->get('/view/asTable', 'BodyweightController:showBodyweightTable');
 	$this->post('/addBodyweight', 'BodyweightController:addBodyweight');
+	$this->get('/deleteBodyweight/{id}', 'BodyweightController:deleteBodyweightFromTable');
 });
 
 $app->group('/lifttypes', function() {

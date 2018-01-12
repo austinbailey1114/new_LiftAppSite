@@ -75,4 +75,19 @@ class BodyweightController extends Controller {
 			return $response->withHeader('Location', '../');
 		}
 	}
+
+	public function deleteBodyweightFromTable($request, $response, $args) {
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/bodyweights/');
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$result = curl_exec($ch);
+
+		if ($result) {
+			return $response->withHeader('Location', '../../');
+		}
+	}
 }

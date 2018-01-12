@@ -85,8 +85,6 @@ class LiftController extends Controller {
 
 	public function deleteLiftFromTable($request, $response, $args) {
 
-		echo "here";
-
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/lifts/');
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
