@@ -31,4 +31,27 @@ class UserController extends Controller {
 			return $reponse->withStatus(400);
 		}
 	}
+
+	public function addUser($request, $response) {
+		$data = $request->getParsedBody();
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/users/');
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$result = curl_exec($ch);
+
+		var_dump($result);
+
+		if ($result) {
+			$query = new Query();
+			$userData = $query->table('users')->select(array('id', 'name'))->where('username', '=', $data['username'])->and_where('password', '=', md5($data['password']))->execute();
+			$_SESSION['id'] = $userData[0]['id'];
+			$_SESSION['name'] = $userData[0]['name'];
+			$_SESSION['created'] = time();
+			return $response->withHeader('Location', '../');
+		}
+	}
 }

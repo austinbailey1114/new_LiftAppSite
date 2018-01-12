@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="./users/insertUser" method="post">
+		<form action="./users/addUser" method="post">
 			<div id="nameDiv">
 				<p id="promptName">Name:</p>
 				<input type="text" name="name" id="nameInput" placeholder="name">

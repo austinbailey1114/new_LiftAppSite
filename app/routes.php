@@ -35,6 +35,7 @@ $app->group('/foods', function() {
 
 $app->group('/users', function() {
 	$this->post('/checkLogin', 'UserController:checkLogin');
+	$this->post('/addUser', 'UserController:addUser');
 });
 
 $app->group('/api', function() {
