@@ -36,7 +36,7 @@ $lifts = $_SESSION['userLifts'];
 				echo "<td>".$lift['weight']."</td>";
 				echo "<td>".$lift['reps']."</td>";
 				echo "<td>".date("F d, Y", strtotime($lift['date']))."</td>";
-				echo "<td><a href=api/deleteLift.php?id=".$lift['id']."><button>Delete</button></a></td>";
+				echo "<td><a href=../../lifts/deleteLift/".$lift['id']."><button>Delete</button></a></td>";
 				echo "</tr>";
 			}	
 

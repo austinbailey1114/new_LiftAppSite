@@ -11,6 +11,7 @@ $app->group('/lifts', function() {
 	//app pages
 	$this->get('/view/asTable', 'LiftController:showLiftTable');
 	$this->post('/addLift', 'LiftController:addLift');
+	$this->get('/deleteLift/{id}', 'LiftController:deleteLiftFromTable');
 });
 
 $app->group('/bodyweights', function() {
@@ -21,6 +22,7 @@ $app->group('/bodyweights', function() {
 
 $app->group('/lifttypes', function() {
 	//app pages
+	//probably none
 });
 
 $app->group('/foods', function() {
@@ -41,6 +43,7 @@ $app->group('/api', function() {
 	$this->group('/bodyweights', function() {
 		$this->get('/{id}', 'BodyweightController:getBodyweights');
 		$this->post('/', 'BodyweightController:postBodyweight');
+		$this->delete('/', 'BodyweightController:deleteBodyweight');
 	});
 	$this->group('/lifttypes', function() {
 		$this->get('/{id}', 'LifttypesController:getLifttypes');

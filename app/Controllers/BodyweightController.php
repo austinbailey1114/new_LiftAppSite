@@ -35,6 +35,22 @@ class BodyweightController extends Controller {
 		}
 	}
 
+	public function deleteBodyweight($request, $response) {
+		$data = $request->getParsedBody();
+
+		$query = new Query();
+		$result = $query->table('bodyweights')->delete('id', '=', $data['id'])->execute();
+
+		if ($result) {
+			echo "Item deleted successfully";
+			return $response->withStatus(200);
+		} else {
+			echo "Unable to delete item. Please ensure all variables are properly defined";
+			return $response->withStatus(400);
+		}
+
+	}
+
 	//app pages
 	public function showBodyweightTable($request, $response) {
 		return $this->view->render($response, 'bodyweightTable.php');

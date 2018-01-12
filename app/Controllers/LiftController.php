@@ -64,17 +64,32 @@ class LiftController extends Controller {
 		$data['id'] = $_SESSION['id'];
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/lifts/');
+		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/lifts/');
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$result = curl_exec($ch);
 
-		var_dump($result);
-
 		if ($result) {
 			return $response->withHeader('Location', '../');
+		}
+	}
+
+	public function deleteLiftFromTable($request, $response, $args) {
+
+		echo "here";
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/lifts/');
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$result = curl_exec($ch);
+
+		if ($result) {
+			return $response->withHeader('Location', '../../');
 		}
 	}
 }
