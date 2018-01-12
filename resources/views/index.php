@@ -169,7 +169,6 @@ if (count($bodyweights) > 0) {
 								});
 							</script>
 							<input type="test" name="date" id="dateInput" placeholder="leave blank if today" autocomplete="off">
-							<input type="text" name="real_type" id="real_type" style="display: none;">
 						</div>
 						<button id="saveLift">Save</button>
 					</form>
@@ -309,13 +308,8 @@ if (count($bodyweights) > 0) {
 			catch(err) {
 				//document.getElementById("typeInput").value = "No Types";
 			}
-
-			var real_type = document.getElementById('real_type');
-			real_type.value = type.options[type.selectedIndex].text;
 			
 		}
-
-		fillType();
 
 		function unfillType() {
 			var selectDiv = document.getElementById('typeSelectDiv');

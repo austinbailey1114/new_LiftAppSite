@@ -17,16 +17,15 @@ class LiftController extends Controller {
 		$query = new Query();
 
 		//insert type into lift types if it does not exist
-		if (isset($_POST['real_type'])) {
-			$type = $_POST['real_type'];
-			$inserted = true;
-		} else {
-			$type = $_POST['type'];
+		//NOTE: need to specify that it is a new type to work
+		if ($_POST['isNewType']) {
 			$inserted = $query->table('lifttypes')->insert(array('name', 'user'), array($data['type'], $data['id']))->execute();
+		} else {
+			$inserted = true;
 		}
 
 		//insert lift
-		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $type, $data['id']))->execute();
+		$result = $query->table('lifts')->insert(array('weight', 'reps', 'type', 'user'), array($data['weight'], $data['reps'], $data['type'], $data['id']))->execute();
 
 		if ($result && $inserted) {
 			echo "New lift added successfully";
@@ -60,6 +59,14 @@ class LiftController extends Controller {
 
 	public function addLift($request, $response) {
 		$data = $request->getParsedBody();
+
+		if (isset($_POST['type'])) {
+		    $data['type'] = $_POST['type'];
+		    $data['isNewType'] = true;
+		} else {
+		    $data['type'] = $_POST['lifttypes'];
+		    $data['isNewType'] = false;
+		}
 
 		$data['id'] = $_SESSION['id'];
 
