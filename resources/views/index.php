@@ -1,69 +1,40 @@
 <?php 
 
+//url
+$url = getenv('URL');
+
+//user data set on login
 $id = $_SESSION['id'];
 $name = $_SESSION['name'];
 
-/* use cURL to grab lifts */
+//prepare for get requests from api
 $ch = curl_init();
-
-//set options to lift.php, string, GET
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/lifts/' . $id);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 
-$headers = array();
-$headers[] = "Content-Type: application/json";
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-$lifts = curl_exec($ch);
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
+//function to grab data from api
+function cURLwithURL($apiURL, $url, $id, $ch) {
+	curl_setopt($ch, CURLOPT_URL, $url . $apiURL . $id);
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo "Error: " . curl_error($ch);
+	}
+	return json_decode(trim($result), true);
 }
 
-$lifts = json_decode(trim($lifts), true);
-
-//create SESSION variable for liftTable.php
+//grab lift data
+$lifts = cURLwithURL('api/lifts/', $url, $id, $ch);
 $_SESSION['userLifts'] = $lifts;
 
-
-//update url to bodyweight.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/bodyweights/' . $id);
-
-$bodyweights = curl_exec($ch);
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-}
-
-$bodyweights = json_decode(trim($bodyweights), true);
-
+//grab bodyweight data
+$bodyweights = cURLwithURL('api/bodyweights/', $url, $id, $ch);
 $_SESSION['userBodyweights'] = $bodyweights;
 
-//update url to lifttypes.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/lifttypes/' . $id);
+//grab lifttypes
+$lifttypes = cURLwithURL('api/lifttypes/', $url, $id, $ch);
 
-$lifttypes = curl_exec($ch);
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-}
-
-$lifttypes = json_decode(trim($lifttypes), true);
-
-//update url to food.php
-curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/foods/' . $id);
-
-$foodhistory = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-}
-
-curl_close($ch);
-
-$foodhistory = json_decode(trim($foodhistory), true);
-
-if(count($foodhistory) > 0) {
-	$foodhistory = array_reverse($foodhistory);
-}
+//grab food data
+$foodhistory = cURLwithURL('api/foods/', $url, $id, $ch);
 
 //build arrays with the GET data to make graphs
 $liftxaxis = array();
@@ -72,18 +43,16 @@ $types = array();
 
 if (count($lifts) > 0) {
 	foreach ($lifts as $lift) {
-		$date = strtotime($lift["date"]);
-		$liftxaxis[] = date("n/j", $date);
+		$liftxaxis[] = date("n/j", strtotime($lift["date"]));
 
-		$weight = $lift["weight"];
-		$reps = $lift["reps"];
-		$onerepmax = $weight * (1 + ($reps/30));
+		$onerepmax = $lift['weight'] * (1 + ($lift['reps']/30));
 		$liftyaxis[] = $onerepmax;
 
 		$types[] = $lift["type"];
 	}
 }
 
+//bodyweight data
 $weightxaxis = array();
 $weightyaxis = array();
 

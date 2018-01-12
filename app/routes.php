@@ -36,6 +36,7 @@ $app->group('/api', function() {
 	$this->group('/lifts', function() {
 		$this->get('/{id}', 'LiftController:getLifts');
 		$this->post('/', 'LiftController:postLift');
+		$this->delete('/{id}', 'LiftController:deleteLift');
 	});
 	$this->group('/bodyweights', function() {
 		$this->get('/{id}', 'BodyweightController:getBodyweights');
