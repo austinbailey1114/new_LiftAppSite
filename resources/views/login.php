@@ -22,7 +22,7 @@
 			<input type="text" name="username" id="usernameInput" placeholder="Username">
 			<input type="password" name="password" id="passwordInput" placeholder="Password">
 			<button id="login">Login</button>
-			<p id="createAccount"><a href="./accountCreate.php">Create an account</a></p>
+			<p id="createAccount"><a href="./createAccount">Create an account</a></p>
 		</form>
 	</div>
 

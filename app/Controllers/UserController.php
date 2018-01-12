@@ -14,4 +14,21 @@ class UserController extends Controller {
 			return $response->withJson($result, 200, JSON_PRETTY_PRINT);
 		}
 	}
+
+	public function postUser($request, $response) {
+		$data = $request->getParsedBody();
+
+		$query = new Query();
+		$result = $query->table('users')
+						->insert(array('name', 'username', 'password'), array($data['name'], $data['username'], md5($data['password'])))
+						->execute();
+
+		if ($result) {
+			echo "User created successfully";
+			return $response->withStatus(200);
+		} else {
+			echo "Unable to add user. Please check that variables are properly defined";
+			return $reponse->withStatus(400);
+		}
+	}
 }

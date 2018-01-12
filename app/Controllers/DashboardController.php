@@ -46,4 +46,8 @@ class DashboardController extends Controller {
 		session_destroy();
 		return $this->view->render($response, 'login.php');
 	}
+
+	public function newUser($request, $response) {
+		return $this->view->render($response, 'accountCreate.php');
+	}
 }

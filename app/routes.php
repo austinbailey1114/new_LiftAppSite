@@ -5,6 +5,7 @@ $app->group('/', function() {
 	$this->get('login', 'DashboardController:login');
 	$this->post('verify', 'DashboardController:verify');
 	$this->get('logout', 'DashboardController:logout');
+	$this->get('createAccount', 'DashboardController:newUser');
 });
 
 $app->group('/lifts', function() {
@@ -55,6 +56,9 @@ $app->group('/api', function() {
 		$this->get('/{id}', 'FoodController:getFoods');
 		$this->get('/search/{query}', 'FoodController:searchFoods');
 		//todo when nutrition api is up
+	});
+	$this->group('/users', function() {
+		$this->post('/', 'UserController:postUser');
 	});
 
 
