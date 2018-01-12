@@ -1,24 +1,21 @@
 <?php
-/*require './core/init.php';
-$name = "Austin Bailey";
 
 $ch = curl_init();
 
-$url1 = $url . "/api/searchFood.php?search=";
-$url2 =  "&api_key=1";
+$url = 'http://localhost/NutritionAPI/public/search/';
+$searchInput = $_POST['searchField'];
 
-$searchInput = str_replace(" ", "_", $_POST['searchField']);
+//$searchURL = $url . $searchInput;
 
-$searchURL = $url1 . $searchInput . $url2;
-
-curl_setopt($ch, CURLOPT_URL, $searchURL);
+curl_setopt($ch, CURLOPT_URL, $url . urlencode($searchInput));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 
 $foods = curl_exec($ch);
 curl_close ($ch);
 
-$foods = json_decode(trim($foods), true);*/
+$foods = json_decode(trim($foods), true);
+
 ?>
 <!DOCTYPE html>
 <html>
