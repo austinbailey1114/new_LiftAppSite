@@ -80,6 +80,7 @@ class LiftController extends Controller {
 
 		if ($result) {
 			$_SESSION['message'] = 'success';
+			$_SESSION['lift'] = $data['type'];
 		} else {
 			$_SESSION['message'] = 'failed';
 		}

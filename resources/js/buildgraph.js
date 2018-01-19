@@ -13,8 +13,6 @@ function buildliftChart() {
     var xaxis = new Array();
     var yaxis = new Array();
 
-
-
     for (var i = 0; i < types.length; i++) {
         //only add the elements that are the type the user wants to look at
         if (types[i] == titleString) {
@@ -38,8 +36,8 @@ function buildliftChart() {
             
         }
     }
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var chart = new Chart(ctx, {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
 

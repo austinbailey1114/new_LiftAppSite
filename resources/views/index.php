@@ -112,7 +112,7 @@ if (count($bodyweights) > 0) {
 							<a id="lifttable" href="lifts/view/asTable">View as Table</a>
 						</form>
 					</div>
-						<select name="chooseLift" id="chooseLiftToDisplay" onchange="buildliftChart()">
+						<select name="chooseLift" id="chooseLiftToDisplay" v-on:change="updateLiftChart()">
 						<?php
 
 							if (count($lifttypes) > 0) {
@@ -279,19 +279,16 @@ if (count($bodyweights) > 0) {
 				unset($_SESSION['message']);
 			} 
 
-			if(isset($_GET["lift"])) {
+			if(isset($_SESSION['lift'])) {
 				?>
-					var liftGraphSelect = document.getElementById('chooseLiftToDisplay');
-					liftGraphSelect.value = <?php echo json_encode($_GET['lift']); ?>;
-					liftGraphSelect.text = <?php echo json_encode($_GET['lift']); ?>;
-					var typeSelect = document.getElementById('lifttypes');
-					typeSelect.value = <?php echo json_encode($_GET['lift']); ?>;
-					typeSelect.text = <?php echo json_encode($_GET['lift']); ?>;
-
+					var lift = <?php echo json_encode($_SESSION['lift']); ?>;
+					$('#chooseLiftToDisplay').val(lift); 
+					buildliftChart();
 				<?php
 			} else {
 				//lift isnt set
 			}
+			unset($_SESSION['lift']);
 		?>
 
 		//show the drop down on click
@@ -309,7 +306,11 @@ if (count($bodyweights) > 0) {
 		const app = new Vue({
 			el: '#app',
 			data: {
-				newType: false
+				newType: false,
+				displayingLift: "bagel",
+				types: <?php echo json_encode($types); ?>,
+				liftxaxis: <?php echo json_encode($liftxaxis); ?>,
+				liftyaxis: <?php echo json_encode($liftyaxis); ?>,
 			},
 			methods: {
 				//affect type in newliftdiv
@@ -328,17 +329,81 @@ if (count($bodyweights) > 0) {
 					} else {
 						$('#' + pid).text(reset);
 					}
+				},
+				updateLiftChart() {
+					this.displayingLift = $('#chooseLiftToDisplay').val();
+					this.buildLiftChart();
+				},
+				buildLiftChart() {
+					var titleString = this.displayingLift;
+
+					console.log(titleString);
+
+				    var xaxis = new Array();
+				    var yaxis = new Array();
+
+				    for (var i = 0; i < this.types.length; i++) {
+				        //only add the elements that are the type the user wants to look at
+				        if (this.types[i] == titleString) {
+				            try {
+				                var length = xaxis.length;
+				                //only add the max lift value of that type on that day
+				                if (xaxis[length-1] == this.liftxaxis[i]) {
+				                    if (yaxis[length-1] < this.liftyaxis[i]) {
+				                        yaxis[length-1] = this.liftyaxis[i];
+				                    }
+				                }
+				                else {
+				                    xaxis.push(this.liftxaxis[i]);
+				                    yaxis.push(this.liftyaxis[i]);
+				                }
+				            } catch(err) {
+				                console.log("except reached");
+				                xaxis.push(this.liftxaxis[i]);
+				                yaxis.push(this.liftyaxis[i]);
+				            }
+				            
+				        }
+				    }
+					var ctx = document.getElementById('myChart').getContext('2d');
+					var chart = new Chart(ctx, {
+				    // The type of chart we want to create
+				    type: 'line',
+
+				    // The data for our dataset
+				    data: {
+				        labels: xaxis,
+				        datasets: [{
+				            borderColor: 'rgb(231,76,60)',
+				            backgroundColor: 'rgba(231,76,60,0.3',
+				            fill: true,
+				            data: yaxis,
+				            pointBackgroundColor: 'rgb(231,76,60)',
+
+				        }]
+				    },
+
+				    // Configuration options go here
+				    options: {
+				        responsive: true,
+				        maintainAspectRatio: false,
+				        legend: {
+				            display: false
+				         },
+				    }
+				    });
+
+				    $('#myChart').hide().fadeIn(1000);
 				}
 			}
 		});
 
+		app.buildLiftChart();
+
 		//convert php arrays to javascript arrays for buildgraph.js
-		var liftxaxis= <?php echo json_encode($liftxaxis); ?>;
-		var liftyaxis= <?php echo json_encode($liftyaxis); ?>;
-		var types = <?php echo json_encode($types); ?>;
 		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
 		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
 
+
 	</script>
-	<script type="text/javascript" src="../resources/js/buildgraph.js"></script>
 </html>
