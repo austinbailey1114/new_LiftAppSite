@@ -294,7 +294,6 @@ if (count($bodyweights) > 0) {
 				?>
 					var lift = <?php echo json_encode($_SESSION['lift']); ?>;
 					$('#chooseLiftToDisplay').val(lift).change();
-					console.log($('#chooseLiftToDisplay').val());
 					displayLift = lift; 
 				<?php
 			}
@@ -302,6 +301,7 @@ if (count($bodyweights) > 0) {
 			unset($_SESSION['lift']);
 		?>
 
+		//reset these items css so they can show up
 		$('.dropButton').css('display', 'block');
 		$('#newType').css('display', 'block');
 
