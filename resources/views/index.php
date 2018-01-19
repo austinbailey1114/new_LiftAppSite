@@ -258,6 +258,10 @@ if (count($bodyweights) > 0) {
 	</body>
 	<script type="text/javascript">
 
+		/*
+		* Global Variables
+		*/
+
 		//convert php arrays to js arrays
 		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
 		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
@@ -265,41 +269,20 @@ if (count($bodyweights) > 0) {
 		var liftxaxis = <?php echo json_encode($liftxaxis); ?>;
 		var types = <?php echo json_encode($types); ?>;
 
-		//global variable to pass to Vue
+		//grab session variables if they are set
+		var message = <?php  
+							if (isset($_SESSION['message'])) echo json_encode($_SESSION['message']); 
+							else echo "null"; 
+							unset($_SESSION['message']);
+					  ?>;
+
+		var lift = <?php
+						if (isset($_SESSION['lift'])) echo json_encode($_SESSION['lift']);
+						else echo 'null';
+						unset($_SESSION['lift']);
+				    ?>;
+
 		var displayLift = $('#chooseLiftToDisplay').val();
-
-		//check for session variables to create sweetalerts
-		<?php
-			if(isset($_SESSION['message'])) {
-				?> 
-					var message = <?php echo json_encode($_SESSION['message']); ?>;
-					if (message == "success") {
-						swal('Item added successfully', '', 'success');
-					}
-					else if (message == "failed") {
-						swal("Unable to add item. Please make sure your inputs are numbers", "", "warning");
-					}
-					else if(message == "deleteSuccess") {
-						swal("Item deleted successfully", " ", "success");
-					}
-					else if(message == "deleteFailed") {
-						swal("Failed to delete item", "", 'warning');
-					}
-
-				<?php
-				unset($_SESSION['message']);
-			} 
-
-			if(isset($_SESSION['lift'])) {
-				?>
-					var lift = <?php echo json_encode($_SESSION['lift']); ?>;
-					$('#chooseLiftToDisplay').val(lift).change();
-					displayLift = lift; 
-				<?php
-			}
-
-			unset($_SESSION['lift']);
-		?>
 
 		//reset these items css so they can show up
 		$('.dropButton').css('display', 'block');
@@ -308,4 +291,5 @@ if (count($bodyweights) > 0) {
 	</script>	
 	<script type="text/javascript" src="../resources/js/index_vue.js"></script>
 	<script type="text/javascript" src="../resources/js/weightchart.js"></script>
+	<script type="text/javascript" src="../resources/js/swal.js"></script>
 </html>
