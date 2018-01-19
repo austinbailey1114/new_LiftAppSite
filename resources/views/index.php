@@ -257,18 +257,11 @@ if (count($bodyweights) > 0) {
 	</div>
 	</body>
 	<script type="text/javascript">
-		//convert php arrays to javascript arrays
-		var liftxaxis= <?php echo json_encode($liftxaxis); ?>;
-		var liftyaxis= <?php echo json_encode($liftyaxis); ?>;
-		var types = <?php echo json_encode($types); ?>;
-		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
-		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
 
 		<?php
 			if(isset($_SESSION['message'])) {
-				$message = $_SESSION['message'];
 				?> 
-					var message = <?php echo json_encode($message); ?>;
+					var message = <?php echo json_encode($_SESSION['message']); ?>;
 					if (message == "success") {
 						swal('Item added successfully', '', 'success');
 					}
@@ -282,7 +275,6 @@ if (count($bodyweights) > 0) {
 						swal("Failed to delete item", "", 'warning');
 					}
 
-				
 				<?php
 				unset($_SESSION['message']);
 			} 
@@ -301,7 +293,7 @@ if (count($bodyweights) > 0) {
 				//lift isnt set
 			}
 		?>
-		
+
 		//show the drop down on click
 		function showDropDown() {
 			document.getElementById('dropDownElements').classList.toggle('show');
@@ -329,16 +321,23 @@ if (count($bodyweights) > 0) {
 				unfillType() {
 					this.newType = false;
 				},
+				//affect text inputs
 				checkInput(value, pid, reset) {
 					if (isNaN(value)) {
 						$('#' + pid).html("<img src='./images/warning.png' height='20' width='20' style='margin-right: 5px;'>Invalid Input")
 					} else {
-						var prompt = document.getElementById(pid);
-						prompt.textContent = reset;
+						$('#' + pid).text(reset);
 					}
 				}
 			}
 		});
+
+		//convert php arrays to javascript arrays for buildgraph.js
+		var liftxaxis= <?php echo json_encode($liftxaxis); ?>;
+		var liftyaxis= <?php echo json_encode($liftyaxis); ?>;
+		var types = <?php echo json_encode($types); ?>;
+		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
+		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
 
 	</script>
 	<script type="text/javascript" src="../resources/js/buildgraph.js"></script>

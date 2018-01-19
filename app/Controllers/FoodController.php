@@ -30,11 +30,15 @@ class FoodController extends Controller {
 						->insert(array('name', 'user', 'calories', 'fat', 'carbs', 'protein'),
 								 array($data['name'], $_SESSION['id'], $data['calories'], $data['fat'], $data['carbohydrate'], $data['protein']))
 						->execute();
-		
-		if($result) {
-			return $response->withHeader('Location', '../../');
-		}
 
+		if ($result) {
+			$_SESSION['message'] = 'success';
+		} else {
+			$_SESSION['message'] = 'failed';
+		}
+		
+		return $response->withHeader('Location', '../../');
+		
 	}
 
 	public function searchFoods($request, $response, $args) {

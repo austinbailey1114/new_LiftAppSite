@@ -71,9 +71,15 @@ class BodyweightController extends Controller {
 
 		var_dump($result);
 
+
 		if ($result) {
-			return $response->withHeader('Location', '../');
+			$_SESSION['message'] = 'success';
+		} else {
+			$_SESSION['message'] = 'failed';
 		}
+		
+		return $response->withHeader('Location', '../');
+		
 	}
 
 	public function deleteBodyweightFromTable($request, $response, $args) {
@@ -87,7 +93,13 @@ class BodyweightController extends Controller {
 		$result = curl_exec($ch);
 
 		if ($result) {
-			return $response->withHeader('Location', '../../');
+			$_SESSION['message'] = 'deleteSuccess';
+		} else {
+			$_SESSION['message'] = 'deleteFailed';
 		}
+
+
+		return $response->withHeader('Location', '../../');
+		
 	}
 }

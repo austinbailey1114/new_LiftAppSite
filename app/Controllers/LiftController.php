@@ -79,8 +79,11 @@ class LiftController extends Controller {
 		$result = curl_exec($ch);
 
 		if ($result) {
-			return $response->withHeader('Location', '../');
+			$_SESSION['message'] = 'success';
+		} else {
+			$_SESSION['message'] = 'failed';
 		}
+		return $response->withStatus(200)->withHeader('Location', '../');
 	}
 
 	public function deleteLiftFromTable($request, $response, $args) {
@@ -94,7 +97,11 @@ class LiftController extends Controller {
 		$result = curl_exec($ch);
 
 		if ($result) {
-			return $response->withHeader('Location', '../../');
+			$_SESSION['message'] = 'deleteSuccess';
+		} else {
+			$_SESSION['message'] = 'deleteFailed';
 		}
+
+		return $response->withStatus(200)->withHeader('Location', '../../');
 	}
 }
