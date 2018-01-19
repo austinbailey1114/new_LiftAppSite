@@ -38,7 +38,7 @@ class UserController extends Controller {
 		$data = $request->getParsedBody();
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/users/');
+		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/users/');
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -60,6 +60,7 @@ class UserController extends Controller {
 	public function resetPassword($request, $response) {
 		$query = new Query();
 
+		//uncomment following lines when uploaded to server
 		/*
 		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		$newPass = '';
@@ -68,8 +69,6 @@ class UserController extends Controller {
 		}
 
 		$result = $query->table('users')->update(array('password'), array(md5($newPass)))->where('id', '=', $_SESSION['id'])->execute();
-
-		//uncomment following lines when uploaded to server
 		
 		if ($result) {
 			$to      = $_SESSION['email'];

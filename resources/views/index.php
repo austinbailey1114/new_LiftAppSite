@@ -76,10 +76,12 @@ if (count($bodyweights) > 0) {
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<title>LiftApp Site</title>
 		
 	</head>
 	<body>
+		<div id="app">
 		<div id="topContainer">
 			<div id="headerContainer">
 				<h1 align="center" id = "mainTitle">Dashboard</h1>
@@ -140,7 +142,7 @@ if (count($bodyweights) > 0) {
 						<div id="addNewType">
 							<p id="promptType">Type:</p>
 							<div id="typeSelectDiv">
-								<select id="lifttypes" name='lifttypes' onchange="fillType()">
+								<select id="lifttypes" name='lifttypes' v-on:change="fillType()">
 								<?php
 									if (count($lifttypes) > 0) {
 										$typeOptions = "<option value='null'>Select Below</option>";
@@ -247,6 +249,7 @@ if (count($bodyweights) > 0) {
 				
 			</div>
 		</div>
+	</div>
 	</body>
 	<script type="text/javascript">
 		//convert php arrays to javascript arrays
@@ -296,18 +299,7 @@ if (count($bodyweights) > 0) {
 		?>
 
 		function fillType() {
-			try {
-				var type = document.getElementById("lifttypes");
-    			var choice = type.options[type.selectedIndex].text;
-    			if (choice == 'Add New') {
-    				var selectDiv = document.getElementById('typeSelectDiv');
-    				selectDiv.innerHTML = "<button id='tempButton' type=button onclick='unfillType()'><img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'></button><input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>";
-    				document.getElementById('typeInput').focus();
-    			}
-			}
-			catch(err) {
-				//document.getElementById("typeInput").value = "No Types";
-			}
+			
 			
 		}
 
@@ -346,6 +338,31 @@ if (count($bodyweights) > 0) {
 				document.getElementById('dropDownElements').classList.remove('show');
 			}
 		}
+
+		const app = new Vue({
+			el: '#app',
+			data: {
+				typeOptions
+			},
+			methods: {
+				fillType() {
+					try {
+						var type = document.getElementById("lifttypes");
+		    			var choice = type.options[type.selectedIndex].text;
+		    			if (choice == 'Add New') {
+		    				var selectDiv = document.getElementById('typeSelectDiv');
+		    				selectDiv.innerHTML = "<button id='tempButton' type=button onclick='unfillType()'><img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'></button><input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>";
+		    				document.getElementById('typeInput').focus();
+		    			}
+					}
+					catch(err) {
+						//document.getElementById("typeInput").value = "No Types";
+					}
+				}
+			}
+		});
+
+		console.log(typeOptions);
 
 	</script>
 	<script type="text/javascript" src="../resources/js/buildgraph.js"></script>

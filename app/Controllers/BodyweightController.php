@@ -62,7 +62,7 @@ class BodyweightController extends Controller {
 		$data['id'] = $_SESSION['id'];
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'localhost/newLiftAppSite/public/api/bodyweights/');
+		curl_setopt($ch, CURLOPT_URL, getenv('URL') . 'api/bodyweights/');
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
