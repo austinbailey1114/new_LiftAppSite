@@ -258,6 +258,10 @@ if (count($bodyweights) > 0) {
 	</body>
 	<script type="text/javascript">
 
+		//global variable to pass to Vue
+		var displayLift = $('#chooseLiftToDisplay').val();
+
+		//check for session variables to create sweetalerts
 		<?php
 			if(isset($_SESSION['message'])) {
 				?> 
@@ -282,14 +286,16 @@ if (count($bodyweights) > 0) {
 			if(isset($_SESSION['lift'])) {
 				?>
 					var lift = <?php echo json_encode($_SESSION['lift']); ?>;
-					$('#chooseLiftToDisplay').val(lift); 
-					buildliftChart();
+					$('#chooseLiftToDisplay').val(lift);
+					console.log($('#chooseLiftToDisplay').val());
+					displayLift = lift; 
 				<?php
 			} else {
 				//lift isnt set
 			}
 			unset($_SESSION['lift']);
 		?>
+
 
 		//show the drop down on click
 		function showDropDown() {
@@ -307,7 +313,7 @@ if (count($bodyweights) > 0) {
 			el: '#app',
 			data: {
 				newType: false,
-				displayingLift: "bagel",
+				displayingLift: displayLift,
 				types: <?php echo json_encode($types); ?>,
 				liftxaxis: <?php echo json_encode($liftxaxis); ?>,
 				liftyaxis: <?php echo json_encode($liftyaxis); ?>,
@@ -319,9 +325,11 @@ if (count($bodyweights) > 0) {
 	    				this.newType = !this.newType;
 	    			}
 				},
+
 				unfillType() {
 					this.newType = false;
 				},
+
 				//affect text inputs
 				checkInput(value, pid, reset) {
 					if (isNaN(value)) {
@@ -330,41 +338,17 @@ if (count($bodyweights) > 0) {
 						$('#' + pid).text(reset);
 					}
 				},
+
 				updateLiftChart() {
 					this.displayingLift = $('#chooseLiftToDisplay').val();
 					this.buildLiftChart();
 				},
+
 				buildLiftChart() {
-					var titleString = this.displayingLift;
+					axes = this.buildAxes();
+					xaxis = axes[0];
+					yaxis = axes[1];
 
-					console.log(titleString);
-
-				    var xaxis = new Array();
-				    var yaxis = new Array();
-
-				    for (var i = 0; i < this.types.length; i++) {
-				        //only add the elements that are the type the user wants to look at
-				        if (this.types[i] == titleString) {
-				            try {
-				                var length = xaxis.length;
-				                //only add the max lift value of that type on that day
-				                if (xaxis[length-1] == this.liftxaxis[i]) {
-				                    if (yaxis[length-1] < this.liftyaxis[i]) {
-				                        yaxis[length-1] = this.liftyaxis[i];
-				                    }
-				                }
-				                else {
-				                    xaxis.push(this.liftxaxis[i]);
-				                    yaxis.push(this.liftyaxis[i]);
-				                }
-				            } catch(err) {
-				                console.log("except reached");
-				                xaxis.push(this.liftxaxis[i]);
-				                yaxis.push(this.liftyaxis[i]);
-				            }
-				            
-				        }
-				    }
 					var ctx = document.getElementById('myChart').getContext('2d');
 					var chart = new Chart(ctx, {
 				    // The type of chart we want to create
@@ -394,6 +378,35 @@ if (count($bodyweights) > 0) {
 				    });
 
 				    $('#myChart').hide().fadeIn(1000);
+				},
+
+				buildAxes() {
+					var titleString = this.displayingLift;
+				    var xaxis = new Array();
+				    var yaxis = new Array();
+
+				    for (var i = 0; i < this.types.length; i++) {
+				        //only add the elements that are the type the user wants to look at
+				        if (this.types[i] == titleString) {
+				            try {
+				                var length = xaxis.length;
+				                //only add the max lift value of that type on that day
+				                if (xaxis[length-1] == this.liftxaxis[i]) {
+				                    if (yaxis[length-1] < this.liftyaxis[i]) {
+				                        yaxis[length-1] = this.liftyaxis[i];
+				                    }
+				                } else {
+				                    xaxis.push(this.liftxaxis[i]);
+				                    yaxis.push(this.liftyaxis[i]);
+				                }
+				            } catch(err) {
+				                console.log("except reached");
+				                xaxis.push(this.liftxaxis[i]);
+				                yaxis.push(this.liftyaxis[i]);
+				            }
+				        }
+				    }
+				    return [xaxis, yaxis];
 				}
 			}
 		});
@@ -404,6 +417,7 @@ if (count($bodyweights) > 0) {
 		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
 		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
 
+		
 
 	</script>
 </html>
