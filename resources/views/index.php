@@ -142,7 +142,7 @@ if (count($bodyweights) > 0) {
 						<div id="addNewType">
 							<p id="promptType">Type:</p>
 							<div id="typeSelectDiv">
-								<select id="lifttypes" name='lifttypes' v-on:change="fillType()">
+								<select id="lifttypes" name='lifttypes' v-on:change="fillType()" v-if="!newType">
 								<?php
 									if (count($lifttypes) > 0) {
 										$typeOptions = "<option value='null'>Select Below</option>";
@@ -157,9 +157,14 @@ if (count($bodyweights) > 0) {
 									}
 									echo $typeOptions;
 
-									
 								?>
-							</select>
+								</select>
+								<div v-if="newType">	
+									<button id='tempButton' type=button v-on:click='unfillType()'>
+										<img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'>
+									</button>
+									<input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>
+								</div>
 							</div>
 						</div>
 						<div id="addNewDate">
@@ -298,16 +303,6 @@ if (count($bodyweights) > 0) {
 			}
 		?>
 
-		function fillType() {
-			
-			
-		}
-
-		function unfillType() {
-			var selectDiv = document.getElementById('typeSelectDiv');
-			selectDiv.innerHTML = "<select id='lifttypes' name='lifttypes' onchange='fillType()'>"+ typeOptions + "</select>";
-		}
-
 		function checkInput(value, pid, reset) {
 			if (isNaN(value)) {
 				var prompt = document.getElementById(pid);
@@ -325,8 +320,6 @@ if (count($bodyweights) > 0) {
 		weightInput.addEventListener('input', function() { checkInput(weightInput.value, 'promptWeight', 'Weight: '); }, false);
 		bodyweightInput.addEventListener('input', function() { checkInput(bodyweightInput.value, 'weightTitle', 'Update: ')}, false);
 
-		fillType();
-
 		//show the drop down on click
 		function showDropDown() {
 			document.getElementById('dropDownElements').classList.toggle('show');
@@ -342,27 +335,23 @@ if (count($bodyweights) > 0) {
 		const app = new Vue({
 			el: '#app',
 			data: {
-				typeOptions
+				typeOptions,
+				newType: false
 			},
 			methods: {
 				fillType() {
-					try {
-						var type = document.getElementById("lifttypes");
-		    			var choice = type.options[type.selectedIndex].text;
-		    			if (choice == 'Add New') {
-		    				var selectDiv = document.getElementById('typeSelectDiv');
-		    				selectDiv.innerHTML = "<button id='tempButton' type=button onclick='unfillType()'><img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'></button><input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>";
-		    				document.getElementById('typeInput').focus();
-		    			}
-					}
-					catch(err) {
-						//document.getElementById("typeInput").value = "No Types";
-					}
+		    		var choice = $('#lifttypes').val();
+		    		console.log(choice);
+	    			if (choice == 'addnew') {
+	    				this.newType = !this.newType;
+	    			}
+				},
+				unfillType() {
+					var selectDiv = document.getElementById('typeSelectDiv');
+					selectDiv.innerHTML = "<select id='lifttypes' name='lifttypes' v-on:change='fillType()'>"+ typeOptions + "</select>";
 				}
 			}
 		});
-
-		console.log(typeOptions);
 
 	</script>
 	<script type="text/javascript" src="../resources/js/buildgraph.js"></script>
