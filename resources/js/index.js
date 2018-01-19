@@ -105,6 +105,7 @@ const app = new Vue({
 app.buildLiftChart();
 $('#chooseLiftToDisplay').val(displayLift);
 
+//build bodyweight graph
 var ctx = document.getElementById('bodyweightChart').getContext('2d');
 var chart = new Chart(ctx, {
 // The type of chart we want to create

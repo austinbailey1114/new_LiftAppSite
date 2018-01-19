@@ -94,7 +94,7 @@ if (count($bodyweights) > 0) {
 			</div>
 			<div id="linksContainer">
 				<div class="dropdown">
-					<button v-on:click="toggleDropDown()" class="dropButton"> <?php echo $name ?></button>
+					<button v-on:click="toggleDropDown()" class="dropButton" style="display: none"> <?php echo $name ?></button>
 					<div class="dropDownContent" v-if="showDropDown">
 						<a href="./logout"><h3 id="accountLink">Log Out</h3></a>
 						<a href="./reset"><h3 id="passwordLink">Settings</h3></a>
@@ -159,7 +159,7 @@ if (count($bodyweights) > 0) {
 
 								?>
 								</select>
-								<div v-if="newType">	
+								<div v-if="newType" id="newType" style="display: none">	
 									<button id='tempButton' type=button v-on:click='unfillType()'>
 										<img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'>
 									</button>
@@ -297,11 +297,13 @@ if (count($bodyweights) > 0) {
 					console.log($('#chooseLiftToDisplay').val());
 					displayLift = lift; 
 				<?php
-			} else {
-				//lift isnt set
 			}
+
 			unset($_SESSION['lift']);
 		?>
+
+		$('.dropButton').css('display', 'block');
+		$('#newType').css('display', 'block');
 
 	</script>	
 	<script type="text/javascript" src="../resources/js/index.js"></script>
