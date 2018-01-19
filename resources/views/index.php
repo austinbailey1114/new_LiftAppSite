@@ -133,11 +133,11 @@ if (count($bodyweights) > 0) {
 					<form action="./lifts/addLift" method="post">
 						<div id="addNewWeight">
 							<p id="promptWeight">Weight: </p>
-							<input type="text" name="weight" id="weightInput" placeholder="pounds" autocomplete="off">
+							<input type="text" name="weight" id="weightInput" placeholder="pounds" autocomplete="off" v-on:input="checkInput($('#weightInput').val(), 'promptWeight', 'Weight: ')">
 						</div>
 						<div id="addNewReps">
 							<p id="promptReps">Reps:</p>
-							<input type="text" name="reps" id="repsInput" placeholder="repetitions" autocomplete="off">
+							<input type="text" name="reps" id="repsInput" placeholder="repetitions" autocomplete="off" v-on:input="checkInput($('#repsInput').val(), 'promptReps', 'Reps: ')">
 						</div>
 						<div id="addNewType">
 							<p id="promptType">Type:</p>
@@ -244,7 +244,7 @@ if (count($bodyweights) > 0) {
 					<form action="./bodyweights/addBodyweight" method="post">
 						<div id="promptBodyweight">
 							<h2 id="weightTitle">Update: </h2>
-							<input type="text" name="updateWeight" id="newBodyWeight" placeholder="pounds">
+							<input type="text" name="updateWeight" id="newBodyWeight" placeholder="pounds" v-on:input="checkInput($('#newBodyWeight').val(), 'weightTitle', 'Bodyweight: ')">
 						</div>
 						<div id="addBodyweightButtonDiv">
 							<button id="add">Update</button>
@@ -263,7 +263,6 @@ if (count($bodyweights) > 0) {
 		var types = <?php echo json_encode($types); ?>;
 		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
 		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
-		var typeOptions = <?php echo json_encode($typeOptions); ?>;
 
 		<?php
 			if(isset($_SESSION['message'])) {
@@ -302,24 +301,7 @@ if (count($bodyweights) > 0) {
 				//lift isnt set
 			}
 		?>
-
-		function checkInput(value, pid, reset) {
-			if (isNaN(value)) {
-				var prompt = document.getElementById(pid);
-				prompt.innerHTML = "<img src='./images/warning.png' height='20' width='20' style='margin-right: 5px;'>Invalid Input";
-			} else {
-				var prompt = document.getElementById(pid);
-				prompt.textContent = reset;
-			}
-		}
-
-		var repsInput = document.getElementById('repsInput');
-		var weightInput = document.getElementById('weightInput');
-		var bodyweightInput = document.getElementById('newBodyWeight');
-		repsInput.addEventListener('input', function() { checkInput(repsInput.value, 'promptReps', 'Reps: '); }, false);
-		weightInput.addEventListener('input', function() { checkInput(weightInput.value, 'promptWeight', 'Weight: '); }, false);
-		bodyweightInput.addEventListener('input', function() { checkInput(bodyweightInput.value, 'weightTitle', 'Update: ')}, false);
-
+		
 		//show the drop down on click
 		function showDropDown() {
 			document.getElementById('dropDownElements').classList.toggle('show');
@@ -335,20 +317,25 @@ if (count($bodyweights) > 0) {
 		const app = new Vue({
 			el: '#app',
 			data: {
-				typeOptions,
 				newType: false
 			},
 			methods: {
+				//affect type in newliftdiv
 				fillType() {
-		    		var choice = $('#lifttypes').val();
-		    		console.log(choice);
-	    			if (choice == 'addnew') {
+	    			if ($('#lifttypes').val() == 'addnew') {
 	    				this.newType = !this.newType;
 	    			}
 				},
 				unfillType() {
-					var selectDiv = document.getElementById('typeSelectDiv');
-					selectDiv.innerHTML = "<select id='lifttypes' name='lifttypes' v-on:change='fillType()'>"+ typeOptions + "</select>";
+					this.newType = false;
+				},
+				checkInput(value, pid, reset) {
+					if (isNaN(value)) {
+						$('#' + pid).html("<img src='./images/warning.png' height='20' width='20' style='margin-right: 5px;'>Invalid Input")
+					} else {
+						var prompt = document.getElementById(pid);
+						prompt.textContent = reset;
+					}
 				}
 			}
 		});
