@@ -306,5 +306,6 @@ if (count($bodyweights) > 0) {
 		$('#newType').css('display', 'block');
 
 	</script>	
-	<script type="text/javascript" src="../resources/js/index.js"></script>
+	<script type="text/javascript" src="../resources/js/index_vue.js"></script>
+	<script type="text/javascript" src="../resources/js/weightchart.js"></script>
 </html>
