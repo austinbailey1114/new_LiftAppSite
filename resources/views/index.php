@@ -77,7 +77,7 @@ if (count($bodyweights) > 0) {
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-		<title>LiftApp Site</title>
+		<title>LiftAppSite</title>
 		
 	</head>
 	<body>
@@ -94,8 +94,8 @@ if (count($bodyweights) > 0) {
 			</div>
 			<div id="linksContainer">
 				<div class="dropdown">
-					<button onclick="showDropDown()" class="dropButton"> <?php echo $name ?></button>
-					<div id="dropDownElements" class="dropDownContent">
+					<button v-on:click="toggleDropDown()" class="dropButton"> <?php echo $name ?></button>
+					<div class="dropDownContent" v-if="showDropDown">
 						<a href="./logout"><h3 id="accountLink">Log Out</h3></a>
 						<a href="./reset"><h3 id="passwordLink">Settings</h3></a>
 					</div>
@@ -258,6 +258,14 @@ if (count($bodyweights) > 0) {
 	</body>
 	<script type="text/javascript">
 
+		//convert php arrays to js arrays
+		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
+		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
+		var liftyaxis = <?php echo json_encode($liftyaxis); ?>;
+		var liftxaxis = <?php echo json_encode($liftxaxis); ?>;
+		var types = <?php echo json_encode($types); ?>;
+
+
 		//global variable to pass to Vue
 		var displayLift = $('#chooseLiftToDisplay').val();
 
@@ -286,7 +294,7 @@ if (count($bodyweights) > 0) {
 			if(isset($_SESSION['lift'])) {
 				?>
 					var lift = <?php echo json_encode($_SESSION['lift']); ?>;
-					$('#chooseLiftToDisplay').val(lift);
+					$('#chooseLiftToDisplay').val(lift).change();
 					console.log($('#chooseLiftToDisplay').val());
 					displayLift = lift; 
 				<?php
@@ -298,9 +306,9 @@ if (count($bodyweights) > 0) {
 
 
 		//show the drop down on click
-		function showDropDown() {
+		/*function showDropDown() {
 			document.getElementById('dropDownElements').classList.toggle('show');
-		}
+		}*/
 
 		//hide the dropdown when click is anywhere besides dropButton
 		window.onclick = function(event) {
@@ -314,9 +322,10 @@ if (count($bodyweights) > 0) {
 			data: {
 				newType: false,
 				displayingLift: displayLift,
-				types: <?php echo json_encode($types); ?>,
-				liftxaxis: <?php echo json_encode($liftxaxis); ?>,
-				liftyaxis: <?php echo json_encode($liftyaxis); ?>,
+				types: types,
+				liftxaxis: liftxaxis,
+				liftyaxis: liftyaxis,
+				showDropDown: false
 			},
 			methods: {
 				//affect type in newliftdiv
@@ -353,7 +362,6 @@ if (count($bodyweights) > 0) {
 					var chart = new Chart(ctx, {
 				    // The type of chart we want to create
 				    type: 'line',
-
 				    // The data for our dataset
 				    data: {
 				        labels: xaxis,
@@ -366,7 +374,6 @@ if (count($bodyweights) > 0) {
 
 				        }]
 				    },
-
 				    // Configuration options go here
 				    options: {
 				        responsive: true,
@@ -407,15 +414,44 @@ if (count($bodyweights) > 0) {
 				        }
 				    }
 				    return [xaxis, yaxis];
+				},
+				toggleDropDown() {
+					this.showDropDown = !this.showDropDown;
 				}
 			}
 		});
 
 		app.buildLiftChart();
+		$('#chooseLiftToDisplay').val(displayLift);
 
-		//convert php arrays to javascript arrays for buildgraph.js
-		var weightxaxis = <?php echo json_encode($weightxaxis); ?>;
-		var weightyaxis = <?php echo json_encode($weightyaxis); ?>;
+		var ctx = document.getElementById('bodyweightChart').getContext('2d');
+		var chart = new Chart(ctx, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: weightxaxis,
+	        datasets: [{
+	            borderColor: 'rgb(231,76,60)',
+	            backgroundColor: 'rgba(231,76,60,0.3',
+	            fill: true,
+	            pointBackgroundColor: 'rgb(231,76,60)',
+	            data: weightyaxis,
+	        }]
+	    },
+
+	    // Configuration options go here
+	    options: {
+	        responsive: true,
+	        maintainAspectRatio: false,
+	        legend: {
+	            display: false
+	         },
+	    }
+	    });
+
+    $('#bodyweightChart').hide().fadeIn(1000);
 
 		
 
