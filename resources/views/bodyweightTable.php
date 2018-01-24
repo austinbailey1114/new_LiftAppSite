@@ -8,7 +8,7 @@ $bodyweights = $_SESSION['userBodyweights'];
 <html>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="../../../resources/css/table.css">
+	<link rel="stylesheet" type="text/css" href="./css/table.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>		

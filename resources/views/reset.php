@@ -6,7 +6,7 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="../resources/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
 </head>
 <body>
 	<form action="./resetPassword">

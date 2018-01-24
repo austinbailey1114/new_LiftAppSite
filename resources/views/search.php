@@ -20,7 +20,7 @@ $foods = json_decode(trim($foods), true);
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="../../resources/css/search.css">
+	<link rel="stylesheet" type="text/css" href="./css/search.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>

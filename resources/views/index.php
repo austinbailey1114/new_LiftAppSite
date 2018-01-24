@@ -70,7 +70,7 @@ if (count($bodyweights) > 0) {
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="../resources/css/index.css">
+		<link rel="stylesheet" type="text/css" href="./css/index.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -85,7 +85,7 @@ if (count($bodyweights) > 0) {
 		<div id="topContainer">
 			<div id="headerContainer">
 				<h1 align="center" id = "mainTitle">Dashboard</h1>
-				<img src="../resources/images/hugeIcon.png" height="62" width="62" id="icon">
+				<img src="./images/hugeIcon.png" height="62" width="62" id="icon">
 
 			</div>	
 			<div id="abouttheapp">
@@ -100,7 +100,7 @@ if (count($bodyweights) > 0) {
 						<a href="./reset"><h3 id="passwordLink">Settings</h3></a>
 					</div>
 				</div>
-				<img src="../resources/images/userIcon.png" height="52" width="52" id="userIcon">
+				<img src="./images/userIcon.png" height="52" width="52" id="userIcon">
 			</div>
 		</div>
 		<div id="dashboardDiv">
@@ -161,7 +161,7 @@ if (count($bodyweights) > 0) {
 								</select>
 								<div v-if="newType" id="newType" style="display: none">	
 									<button id='tempButton' type=button v-on:click='unfillType()'>
-										<img src='../resources/images/xicon.png' height='15' width='15' style='margin-right: 5px;'>
+										<img src='./images/xicon.png' height='15' width='15' style='margin-right: 5px;'>
 									</button>
 									<input type='text' name='type' id='typeInput' placeholder='new type' autocomplete='off'>
 								</div>
@@ -289,7 +289,7 @@ if (count($bodyweights) > 0) {
 		$('#newType').css('display', 'block');
 
 	</script>	
-	<script type="text/javascript" src="../resources/js/index_vue.js"></script>
-	<script type="text/javascript" src="../resources/js/weightchart.js"></script>
-	<script type="text/javascript" src="../resources/js/swal.js"></script>
+	<script type="text/javascript" src="./js/index_vue.js"></script>
+	<script type="text/javascript" src="./js/weightchart.js"></script>
+	<script type="text/javascript" src="./js/swal.js"></script>
 </html>
