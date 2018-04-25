@@ -1,4 +1,3 @@
-
 <?php
 namespace Carbon\Middleware;
 class AuthMiddleware extends Middleware
